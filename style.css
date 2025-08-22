@@ -14,15 +14,17 @@ body {
   align-items: center;
   background: radial-gradient(circle at 20% 30%, #1e1e2f, #000000);
   overflow: hidden;
-  /* ✅ no unnecessary scrollbars */
   color: #fff;
+  position: relative;
 }
 
-/* Aurora animation */
+/* Aurora animation (desktop & tablet) */
 body::before,
 body::after {
   content: "";
   position: absolute;
+  left: 0;
+  top: 0;
   width: 200%;
   height: 200%;
   background: conic-gradient(from 90deg,
@@ -46,7 +48,6 @@ body::after {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -63,6 +64,7 @@ body::after {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
 }
 
 /* Title */
@@ -201,7 +203,7 @@ option {
 .task-edit {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* ✅ spacing between inputs & buttons */
+  gap: 10px;
 }
 
 .task-edit .task-btn {
@@ -284,80 +286,13 @@ textarea::placeholder {
 
 /* === Responsive Tweaks === */
 @media (max-width: 900px) {
-
   body::before,
   body::after {
     filter: blur(140px);
   }
 }
 
-@media (max-width: 600px) {
-
-  body::before,
-  body::after {
-    filter: blur(100px);
-    opacity: 0.25;
-  }
-
-  .task-input,
-  .filters {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .task-input input,
-  .task-input select,
-  .task-input button,
-  .filters input,
-  .filters select,
-  .filters button {
-    width: 100%;
-    flex: 1 1 100%;
-  }
-
-  .task-list li {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px;
-  }
-
-  .task-actions {
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  .title {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 400px) {
-
-  body::before,
-  body::after {
-    filter: blur(60px);
-    opacity: 0.18;
-  }
-
-  .app-container {
-    padding: 12px;
-    border-radius: 12px;
-  }
-
-  input,
-  select,
-  button {
-    padding: 8px;
-    font-size: 0.95rem;
-    min-height: 36px;
-  }
-
-  .title {
-    font-size: 1.5rem;
-  }
-}
-
+/* ========== MOBILE (no tiles, soft aurora) ========== */
 @media (max-width: 700px) {
   html, body {
     width: 100vw;
@@ -379,7 +314,7 @@ textarea::placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255,255,255,0.07);
+    background: rgba(25, 25, 48, 0.19);
   }
   .task-input,
   .filters,
@@ -401,13 +336,39 @@ textarea::placeholder {
     margin-top: 8px;
   }
   .title {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+  }
+  
+  /* Kill body tile effect: use a single HUGE blurred gradient fixed and centered */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 260vw;
+    height: 260vh;
+    background: conic-gradient(from 80deg,
+      #ff00cc 0%,
+      #3333ff 20%,
+      #00ffcc 40%,
+      #ff6600 60%,
+      #ff00cc 100%);
+    filter: blur(130px);
+    opacity: 0.13;
+    background-size: cover;
+    z-index: -1;
+    pointer-events: none;
+    will-change: opacity, filter;
+    animation: rotateAurora 24s linear infinite;
+    display: block !important;
   }
 }
 
 @media (max-width: 400px) {
   .title {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
   .app-container {
     padding: 6px 0 12px 0;
@@ -418,21 +379,11 @@ textarea::placeholder {
     width: 98vw;
     padding: 0;
   }
-}
-
-body::before,
-body::after {
-  left: 0;
-  top: 0;
-}
-
-@media (max-width: 700px) {
   body::before,
   body::after {
-    width: 240vw;
-    height: 240vw;
-    background-size: 240vw 240vw;
-    filter: blur(80px);
+    width: 290vw;
+    height: 290vh;
+    filter: blur(120px);
     opacity: 0.10;
   }
 }

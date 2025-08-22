@@ -357,3 +357,40 @@ textarea::placeholder {
     font-size: 1.5rem;
   }
 }
+
+@media (max-width: 700px) {
+  body {
+    background: radial-gradient(circle at center, #1e1e2f, #000000);
+  }
+
+  body::before,
+  body::after {
+    content: "";
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 350vw !important;
+    height: 350vh !important;
+    background: conic-gradient(from 90deg at 50% 50%,
+      #ff00cc 0%,
+      #3333ff 25%,
+      #00ffcc 50%,
+      #ff6600 75%,
+      #ff00cc 100%);
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: 350vw 350vh !important;
+    filter: blur(140px) !important;
+    opacity: 0.15 !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    animation: rotateAurora 20s linear infinite !important;
+    display: block !important;
+  }
+
+  body::after {
+    animation-direction: reverse !important;
+    opacity: 0.10 !important;
+  }
+}

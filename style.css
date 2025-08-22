@@ -394,3 +394,54 @@ textarea::placeholder {
     opacity: 0.10 !important;
   }
 }
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.aurora-tile {
+  background: radial-gradient(circle at center, 
+    rgba(0, 255, 255, 0.3), 
+    rgba(255, 0, 255, 0.2), 
+    rgba(0, 0, 0, 0));
+  animation: auroraMove 15s linear infinite alternate;
+}
+
+@keyframes auroraMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* -------- Mobile screens -------- */
+@media (max-width: 768px) {
+  .aurora {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .aurora-tile {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    background: conic-gradient(
+      from 0deg,
+      rgba(0, 255, 255, 0.3),
+      rgba(255, 0, 255, 0.3),
+      rgba(0, 128, 255, 0.3),
+      rgba(0, 255, 128, 0.3),
+      rgba(0, 255, 255, 0.3)
+    );
+    animation: auroraRotate 20s linear infinite;
+  }
+}
+
+@keyframes auroraRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
